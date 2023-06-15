@@ -11,18 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-var fsql = new FreeSqlBuilder()
-    .UseConnectionString(DataType.MySql, builder.Configuration.GetConnectionString("DB"))
-    .UseMonitorCommand(cmd =>
-    {
-#if DEBUG
-        System.Diagnostics.Debug.WriteLine(cmd.CommandText);
-#endif
-    })
-    .Build();
+//var fsql = new FreeSqlBuilder()
+//    .UseConnectionString(DataType.MySql, builder.Configuration.GetConnectionString("DB"))
+//    .UseMonitorCommand(cmd =>
+//    {
+//#if DEBUG
+//        System.Diagnostics.Debug.WriteLine(cmd.CommandText);
+//#endif
+//    })
+//    .Build();
 
 // add orm
-builder.Services.AddSingleton(fsql);
+//builder.Services.AddSingleton(fsql);
 
 // add bootstrap blazor ui components
 builder.Services.AddBootstrapBlazor();
@@ -30,7 +30,7 @@ builder.Services.AddBootstrapBlazor();
 
 builder.Services.AddHttpContextAccessor();
 
-//µÇÂ¼
+//jwt authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opts =>
     {
@@ -47,12 +47,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         opts.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateAudience = false,
-            //ValidAudience = "https://localhost:5126",
-
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ClockSkew = TimeSpan.FromSeconds(30),
-
             ValidateIssuer = true,
             ValidIssuer = "cms.jwt",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret_key_secret_key_secret_key_secret_key")),
