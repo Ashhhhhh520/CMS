@@ -1,0 +1,76 @@
+﻿@inherits LayoutComponentBase
+<!-- Layout组件 包括了Body,会导致未登录状态时, Body外的Layout组件依然显示 -->
+<Ajax></Ajax>
+@if (isLogin)
+{
+    <Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowFooter="false" ShowCollapseBar="true" Menus="Menus" UseTabSet="true"
+            IsFixedHeader="true" IsFixedFooter="false" TabDefaultUrl="/drug">
+        <Side>
+
+        </Side>
+        <Header>
+            <Tag Color="Color.Primary" style="margin-left:auto">@user.Name</Tag>
+            <Button Color="Color.None" Text="退出登录" OnClick="Logout" style="margin-right:1vw" />
+        </Header>
+        <Main>
+            @Body
+        </Main>
+        <NotFound>
+            <p>错误的网络地址,请联系管理员</p>
+        </NotFound>
+    </Layout>
+}
+else
+{
+    @Body
+}
+
+
+@code
+{
+
+    [Inject]
+    IHttpContextAccessor httpContextAccessor { get; set; }
+
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
+    [Inject]
+    AjaxService AjaxService { get; set; }
+
+    bool isLogin = false;
+
+    CMS.Models.users user = new Models.users() { };
+
+    protected override void OnInitialized()
+    {
+        isLogin = httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
+        if (isLogin)
+        {
+            // 设置当前登录人信息
+            user.Name = httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "无名";
+        }
+        //if(httpContextAccessor?.CheckPermissions("管理员")??false)
+        //{
+        //    Menus.Add(new MenuItem { Text = "用户管理", Url = "/users", Icon = "fa fa-fw fa-home" });
+        //}
+        base.OnInitialized();
+    }
+
+    List<MenuItem> Menus = new List<MenuItem>
+{
+        new MenuItem{Text="主页",Url="/",Icon="fa fa-fw fa-home"},
+    };
+
+    async Task Logout()
+    {
+        var opts = new AjaxOption
+        {
+            Url = "api/Account/Logout",
+            Data = "{}"
+        };
+        var msg = await AjaxService.InvokeAsync(opts);
+        navigationManager.NavigateTo("/drug", true);
+    }
+
+}
