@@ -1,3 +1,5 @@
+global using CMS.OfficialComponents.MenuComponents;
+
 using FreeSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components;
@@ -24,9 +26,8 @@ builder.Services.AddServerSideBlazor();
 // add orm
 //builder.Services.AddSingleton(fsql);
 
-// add bootstrap blazor ui components
-builder.Services.AddBootstrapBlazor();
-
+// add masa blazor ui components
+builder.Services.AddMasaBlazor();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -69,8 +70,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthorization();
-app.UseAuthentication();
+//app.UseAuthorization();
+//app.UseAuthentication();
 
 
 app.MapBlazorHub();

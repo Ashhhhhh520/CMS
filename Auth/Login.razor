@@ -3,10 +3,10 @@
 @attribute [AllowAnonymous]
 @using CMS.Auth
 
-<Ajax></Ajax>
+@*<Ajax></Ajax>*@
 <!-- ajax service 必须添加这个组件 -->
 <div class="is4">
-    <div class="header">
+    <!--<div class="header">
         <span>登录中心</span>
     </div>
 
@@ -15,17 +15,17 @@
             <div class="col-sm-6 login-desc">
                 <p class="main-title">
                     药品/器械不良事件登记系统
-                </p>
+                </p>-->
                 @*<p class="secondary-title">
                     欢迎使用 不良事件 登记系统
                 </p>*@
-            </div>
+            <!--</div>
             <div class="col-sm-6">
                 <form asp-route="Login">
                     <div class="my-alert my-alert--error is-light"></div>
-                    <div class="row my-radio-group">
+                    <div class="row my-radio-group">-->
                         @*<div class="col-12 my-radio-button__inner active" data-value="plat">登录中心</div>*@
-                    </div>
+                    <!--</div>
                     <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
                     <div class="form-group">
                         <label>用户名：</label>
@@ -54,62 +54,62 @@
         </div>
     </div>
 
-    <div class="login-footer">
+    <div class="login-footer">-->
         @*不良事件 登记系统*@
-    </div>
+    <!--</div>-->
 </div>
 
 
 @code
 {
-    [Inject]
-    IJSRuntime jSRuntime { get; set; }
+    //[Inject]
+    //IJSRuntime jSRuntime { get; set; }
 
-    [Inject]
-    NavigationManager navigationManager { get; set; }
+    //[Inject]
+    //NavigationManager navigationManager { get; set; }
 
-    [Inject]
-    AjaxService AjaxService { get; set; }
+    //[Inject]
+    //AjaxService AjaxService { get; set; }
 
-    [Inject]
-    MessageService messageService { get; set; }
+    //[Inject]
+    //MessageService messageService { get; set; }
 
-    UserModel user = new UserModel();
+    //UserModel user = new UserModel();
 
-    async Task OnLogin()
-    {
-        var option = new AjaxOption
-        {
-            Url = "api/Account/Login",
-            Data = user
-        };
-        var result = await AjaxService.InvokeAsync(option);
-        try
-        {
-            var str = result.RootElement.ToString();
-                var model = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResultModel>(result.RootElement.ToString());
-            if (model.Code == 1)
-            {
-                navigationManager.NavigateTo("/", true);
-            }
-            else
-            {
-                await messageService.Show(new MessageOption { Content = model.Msg, Color = Color.Danger });
-            }
-        }
-        catch
-        {
-            await messageService.Show(new MessageOption { Content = "登录失败", Color = Color.Danger });
-            user.UserName = "";
-            user.Password = "";
-        }
-    }
+    //async Task OnLogin()
+    //{
+    //    var option = new AjaxOption
+    //    {
+    //        Url = "api/Account/Login",
+    //        Data = user
+    //    };
+    //    var result = await AjaxService.InvokeAsync(option);
+    //    try
+    //    {
+    //        var str = result.RootElement.ToString();
+    //            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResultModel>(result.RootElement.ToString());
+    //        if (model.Code == 1)
+    //        {
+    //            navigationManager.NavigateTo("/", true);
+    //        }
+    //        else
+    //        {
+    //            await messageService.Show(new MessageOption { Content = model.Msg, Color = Color.Danger });
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        await messageService.Show(new MessageOption { Content = "登录失败", Color = Color.Danger });
+    //        user.UserName = "";
+    //        user.Password = "";
+    //    }
+    //}
 
-    async Task OnKeyup(KeyboardEventArgs e)
-    {
-        if (e.Code == "Enter")
-        {
-            await OnLogin();
-        }
-    }
+    //async Task OnKeyup(KeyboardEventArgs e)
+    //{
+    //    if (e.Code == "Enter")
+    //    {
+    //        await OnLogin();
+    //    }
+    //}
 }

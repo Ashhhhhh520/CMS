@@ -1,0 +1,90 @@
+﻿@inject MasaBlazor MasaBlazor
+@namespace CMS.OfficialComponents.MenuComponents
+
+<style scoped>
+    .m-toolbar__content {
+        display: flex !important;
+        flex-flow: column !important;
+        align-items: flex-start !important;
+        padding:0 !important;
+    }
+    .m-slide-group__content {
+        justify-content: space-around !important;
+    }
+    .m-toolbar__content{
+        height:auto !important;
+    }
+    .m-tabs-bar{
+        height:64px;
+    }
+</style>
+
+<MAppBar Id="app-bar"
+         App
+         Class="default-app-bar m-bar--underline"
+         Flat
+         ClippedRight
+         ClippedLeft
+         Style="left: 0;padding:4px 16px;height:auto">
+    <div style="width:100%">
+        <Awards/>
+    </div>
+    <div style="width:100%">
+        <Tabs Items="@secondMenus"/>
+    </div>
+</MAppBar>
+
+@code{
+
+    [CascadingParameter(Name = "project")]
+    public string? Project { get; set; }
+
+    List<DefaultItem> topMenus = new List<DefaultItem> { };
+
+    List<DefaultItem> secondMenus = new List<DefaultItem> { };
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        var menus = new List<DefaultItem> { };
+
+        topMenus.Add(new DefaultItem
+        {
+            Title = "MASA 官网",
+        });
+        topMenus.AddRange(new List<DefaultItem>
+        {
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
+        });
+
+        secondMenus.Add(new DefaultItem
+        {
+            Title = "MASA 博客",
+            Children = new List<DefaultItem>{
+                new DefaultItem{Title="test1",Href="/fetchdata"},
+            }
+        });
+        secondMenus.AddRange(new List<DefaultItem>
+        {
+            new DefaultItem{Title="Home"},
+            new DefaultItem{Title="About Us"},
+            new DefaultItem{Title="Courses"},
+            new DefaultItem{Title="Apply now"},
+            new DefaultItem{Title="Life Guide"},
+            new DefaultItem{Title="News"},
+            new DefaultItem{Title="Contact Us"},
+            new DefaultItem{Title="Help"},
+        });
+    }
+}
