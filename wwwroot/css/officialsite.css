@@ -15,3 +15,21 @@
     display:flex;
     justify-content:center;
 }
+
+.my_margin_text > div {
+    margin-top: 1em;
+}
+
+.my_shadow_title {
+    font-size: 36px;
+    text-shadow: 2px 2px 0 #857c7c;
+    font-family: fantasy;
+}
+
+.my_home_red {
+    color: #ef1717;
+}
+
+.my_home_brown {
+    color: #815252
+}
