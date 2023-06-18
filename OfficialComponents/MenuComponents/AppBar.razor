@@ -26,65 +26,47 @@
          ClippedRight
          ClippedLeft
          Style="left: 0;padding:4px 16px;height:auto">
+
     <div style="width:100%">
         <Awards/>
     </div>
     <div style="width:100%">
-        <Tabs Items="@secondMenus"/>
+        <Tabs Items="@Menus"/>
     </div>
 </MAppBar>
 
 @code{
-
-    [CascadingParameter(Name = "project")]
-    public string? Project { get; set; }
-
-    List<DefaultItem> topMenus = new List<DefaultItem> { };
-
-    List<DefaultItem> secondMenus = new List<DefaultItem> { };
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        var menus = new List<DefaultItem> { };
-
-        topMenus.Add(new DefaultItem
-        {
-            Title = "MASA 官网",
-        });
-        topMenus.AddRange(new List<DefaultItem>
-        {
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-            new DefaultItem{Title="MASA 官网",Href="/fetchdata"},
-        });
-
-        secondMenus.Add(new DefaultItem
-        {
-            Title = "MASA 博客",
-            Children = new List<DefaultItem>{
-                new DefaultItem{Title="test1",Href="/fetchdata"},
-            }
-        });
-        secondMenus.AddRange(new List<DefaultItem>
-        {
-            new DefaultItem{Title="Home"},
+    List<DefaultItem> Menus = new List<DefaultItem> {
+        new DefaultItem{Title="Home",Href="/"},
+        new DefaultItem{Title="About Us",Children=new List<DefaultItem>{
+            new DefaultItem{Title="CAMPUS FACILITIES",Href="/fetchdata"},
+            new DefaultItem{Title="Holiday"},
+            new DefaultItem{Title="Club"},
             new DefaultItem{Title="About Us"},
-            new DefaultItem{Title="Courses"},
+        } },
+        new DefaultItem{Title="Courses",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Bachelor"},
+            new DefaultItem{Title="Master"},
+
+        } },
+        new DefaultItem{Title="Apply now",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Application requirement"},
             new DefaultItem{Title="Apply now"},
-            new DefaultItem{Title="Life Guide"},
-            new DefaultItem{Title="News"},
-            new DefaultItem{Title="Contact Us"},
-            new DefaultItem{Title="Help"},
-        });
-    }
+
+        } },
+        new DefaultItem{Title="Life Guide",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Resource"},
+            new DefaultItem{Title="Community"},
+            new DefaultItem{Title="Campus activities"},
+            new DefaultItem{Title="Local Tour"},
+
+        } },
+        new DefaultItem{Title="News"},
+        new DefaultItem{Title="Contact Us"},
+        new DefaultItem{Title="Help",Children=new List<DefaultItem>{
+            new DefaultItem{Title="Scholarshp"},
+            new DefaultItem{Title="Tuition"},
+            new DefaultItem{Title="Job Opportunity"},
+        } },
+    };
 }

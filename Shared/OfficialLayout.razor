@@ -5,21 +5,21 @@
         <!--top menu-->
         <CMS.OfficialComponents.MenuComponents.AppBar />
 
-
         <!-- main body -->
-        <MMain Style="padding-top:178px">
+        <MMain Style="padding-top: 178px; background: repeating-linear-gradient(to bottom, #9d7373, #c5b2b2) ">
             <MContainer Fluid Class="px-9">
-                <MResponsive Class="mx-auto overflow-visible overview" MaxWidth="1260">
+                <MResponsive Class="mx-auto overflow-visible overview" MaxWidth="1480">
                     @Body
                 </MResponsive>
             </MContainer>
         </MMain>
     </MErrorHandler>
     <HeadContent>
-        <PageTitle>Home</PageTitle>
+        <PageTitle>My University</PageTitle>
     </HeadContent>
-    <MFooter>
-        <p>Footer</p>
+
+    <MFooter Style="background-image:url(imgs/official/footer/footer.png);background-size:cover;color:white;">
+        <CMS.OfficialComponents.FooterComponents.MyFooter />
     </MFooter>
 </MApp>
 

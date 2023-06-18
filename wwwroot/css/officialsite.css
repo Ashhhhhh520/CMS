@@ -1,0 +1,17 @@
+﻿
+.to_flex{
+    display:flex;
+}
+
+.to_white{
+    color:white;
+}
+
+.to_weight{
+    font-weight:600;
+}
+
+.flex-center{
+    display:flex;
+    justify-content:center;
+}
