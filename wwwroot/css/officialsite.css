@@ -33,3 +33,42 @@
 .my_home_brown {
     color: #815252
 }
+
+.my_font_family{
+    font-family:fantasy;
+}
+
+.my_justily_content{
+    justify-content:center;
+}
+.my_margin_top{
+    margin-top:3em !important;
+}
+.my_margin{
+    margin:3em;
+}
+
+.my_margin_left{
+    margin-left:3em;
+}
+
+.my_margin_auto{
+    margin:auto;
+}
+
+.my_flex > * {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.my_flex_text > * {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px
+}
+
+.my_backgroundimg{
+    background-size:cover;
+}
