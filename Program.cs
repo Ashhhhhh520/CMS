@@ -1,4 +1,5 @@
 global using CMS.OfficialComponents.MenuComponents;
+global using CMS.Extensions;
 
 using FreeSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
