@@ -2,8 +2,8 @@
 {
     public class LoginResultModel
     {
-        public int Code { get; set; } = 0;
+        public int code { get; set; } = 0;
 
-        public string? Msg { get; set; }
+        public string? msg { get; set; }
     }
 }

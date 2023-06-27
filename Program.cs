@@ -3,8 +3,6 @@ global using CMS.Extensions;
 
 using FreeSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -14,18 +12,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-//var fsql = new FreeSqlBuilder()
-//    .UseConnectionString(DataType.MySql, builder.Configuration.GetConnectionString("DB"))
-//    .UseMonitorCommand(cmd =>
-//    {
-//#if DEBUG
-//        System.Diagnostics.Debug.WriteLine(cmd.CommandText);
-//#endif
-//    })
-//    .Build();
+var fsql = new FreeSqlBuilder()
+    .UseConnectionString(DataType.MySql, builder.Configuration.GetConnectionString("DB"))
+    .UseMonitorCommand(cmd =>
+    {
+#if DEBUG
+        System.Diagnostics.Debug.WriteLine(cmd.CommandText);
+#endif
+    })
+    .Build();
 
-// add orm
-//builder.Services.AddSingleton(fsql);
+//add orm
+builder.Services.AddSingleton(fsql);
 
 // add masa blazor ui components
 builder.Services.AddMasaBlazor();
@@ -38,14 +36,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         opts.Events = new JwtBearerEvents
         {
-            // 设置token , 跟登录时写入位置有关, cookies 或者 header 中
+            // get token
             OnMessageReceived = context =>
             {
                 context.Token = context.Request.Cookies["access_token"];
                 return Task.CompletedTask;
             },
         };
-        // token验证的参数配置
+        // token parameter
         opts.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateAudience = false,

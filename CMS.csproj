@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\admin\imgs\avatar\1.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\imgs\aboutus\aboutus1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

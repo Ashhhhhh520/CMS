@@ -3,67 +3,87 @@
 @attribute [AllowAnonymous]
 @using CMS.Auth
 
-@*<Ajax></Ajax>*@
-<!-- ajax service 必须添加这个组件 -->
-<div class="is4">
-    <!--<div class="header">
-        <span>登录中心</span>
-    </div>
-
-    <div class="login-body">
-        <div class="row">
-            <div class="col-sm-6 login-desc">
-                <p class="main-title">
-                    药品/器械不良事件登记系统
-                </p>-->
-                @*<p class="secondary-title">
-                    欢迎使用 不良事件 登记系统
-                </p>*@
-            <!--</div>
-            <div class="col-sm-6">
-                <form asp-route="Login">
-                    <div class="my-alert my-alert--error is-light"></div>
-                    <div class="row my-radio-group">-->
-                        @*<div class="col-12 my-radio-button__inner active" data-value="plat">登录中心</div>*@
-                    <!--</div>
-                    <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
-                    <div class="form-group">
-                        <label>用户名：</label>
-                        <input class="form-control" id="userName" placeholder="账号" asp-for="UserName" autofocus autocomplete="off" @bind-value="user.UserName">
-                        <span class="text-danger field-validation-error" id="lblUserName">请输入账号</span>
-                    </div>
-                    <div class="form-group">
-                        <label>登录密码：</label>
-                        <input onkeyup="@OnKeyup"  class="form-control" type="password" id="password" placeholder="密码" asp-for="Password" autocomplete="off" @bind-value="user.Password">
-                        <span class="text-danger field-validation-error" id="lblPassword">请输入密码</span>
-                    </div>
-                    <div class="form-group">
-                        <div id="content"></div>
-                    </div>
-                    <div class="form-group">
-                        <Button Text="登  录" OnClick="OnLogin"  />
-                    </div>
-                    <div class="form-group">
-                        <a href="http://196.147.123.4:81" target="view_window" style="text-decoration:none">其它不良事件系统</a>
-                    </div>
-                    <div class="form-group">
-                        <a href="http://196.147.123.4:82/login.aspx" target="view_window" style="text-decoration:none">手术管理系统</a>
-                    </div>
-                </form>
-            </div>
+<div class="d-flex align-center" style="height:calc(100% - 96px)">
+    <MCard Width=510 Height=680 Class="mx-auto my-auto">
+        <div style="height:60px;"></div>
+        <div class="mt-2 mx-auto text-center" style="width:420px;">
+            <MAvatar Size=80>
+                <MImage Src="/admin/imgs/avatar/1.svg">
+                </MImage>
+            </MAvatar>
+            <h5 class="mt-2 mb-12">Welcome to Admin System</h5>
+            <MTextField TValue="string" @bind-Value="UserName"
+                        Label="User Name"
+                        Outlined
+                        HideDetails="@("auto")">
+            </MTextField>
+            <MTextField TValue="string" @bind-Value="Password"
+                        Class="mt-10"
+                        Label="Password"
+                        Type="@(_show ? "text" : "password")"
+                        AppendIcon="@(_show ? "mdi-eye" : "mdi-eye-off")"
+                        OnAppendClick="()=>_show = !_show"
+                        Outlined
+                        HideDetails="@("auto")">
+            </MTextField>
+            <MButton Class="mt-11 rounded-4 text-btn white--text" OnClick=OnLogin Height=46 Width=340 Color="primary">Login</MButton>
         </div>
-    </div>
-
-    <div class="login-footer">-->
-        @*不良事件 登记系统*@
-    <!--</div>-->
+    </MCard>
 </div>
-
 
 @code
 {
-    //[Inject]
-    //IJSRuntime jSRuntime { get; set; }
+    [Inject]
+    IJSRuntime? jSRuntime { get; set; }
+
+    private bool _show;
+
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    public IPopupService PopupService { get; set; }
+
+    [Parameter]
+    public bool HideLogo { get; set; }
+
+    [Parameter]
+    public double Width { get; set; } = 410;
+
+    [Parameter]
+    public StringNumber? Elevation { get; set; }
+
+    IJSObjectReference? jSObjectReference { get; set; }
+
+    string? UserName { get; set; }
+    string? Password { get; set; }
+
+    public async Task OnLogin()
+    {
+        var result= await jSObjectReference!.InvokeAsync<System.Text.Json.JsonDocument>("execute",new CMS.AdminComponents.AjaxOption {
+            Url= "api/Account/Login",
+            Data=new UserModel { username=UserName,password=Password}
+        });
+
+        var val = System.Text.Json.JsonSerializer.Deserialize<LoginResultModel>(result.RootElement.ToString());
+        if(val?.code==1)
+        {
+            Navigation.NavigateTo("/admin/home");
+        }
+        else
+        {
+            await PopupService.AlertAsync(val.msg);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            var path = "/js/ajax.js";
+            jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
+        }
+    }
 
     //[Inject]
     //NavigationManager navigationManager { get; set; }
