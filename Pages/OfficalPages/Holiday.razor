@@ -1,4 +1,4 @@
-﻿@page "/holiday"
+@page "/holiday"
 
 <style scoped>
     .my_holiday_title {
@@ -29,8 +29,46 @@
     }
 </style>
 
+<div style="position:relative;height:auto;">
+    <div style="z-index:2;width:100%;position:relative;">
+        @for(int i = 0; i < 10; i++)
+            {
+                <MRow Class="my_backgroundimg my_justily_content">
+                    <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+                        University Key Dates
+                    </div>
+                    <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+                        In Singapore
+                    </div>
+                    <div class="my_holiday_title my_holiday_month">
+                        January
+                    </div>
+                    <pre class="my_holiday_content">
+9th
+Singapore Trimester 1 - Commences
+16th
+Singapore Trimester 3 - Fully Graded Date - 9am
+20th
+Singapore Trimester 1 - Last day to add a course through myHub without approval
+    </pre>
+                </MRow>
+            }
+    </div>
 
-<MRow Style="background-image: url(imgs/holiday/holiday1.png)" Class="my_backgroundimg my_justily_content">
+
+    <div style="display:flex;flex-direction:column;position:absolute;left:0;top:0;z-index:1;height:100%;width:100%;overflow:hidden;">
+        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday1.png"/>
+        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday2.png"/>
+        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday3.png"/>
+        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday4.png"/>
+    </div>
+
+</div>
+
+
+
+
+@*<MRow Style="background-image: url(imgs/holiday/holiday1.png)" Class="my_backgroundimg my_justily_content">
     <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
         University Key Dates
     </div>
@@ -182,4 +220,4 @@ Singapore Trimester 3 - Concludes
 Singapore Trimester 3 - Examinations
 December 11th - December 21st
     </pre>
-</MRow>
+</MRow>*@
