@@ -30,7 +30,8 @@ namespace CMS.Controllers
             var db_user = new users()
             {
                 ID=1,
-                Name="666"
+                Name="666",
+                Password="123"
             };
 
             if (db_user == null)

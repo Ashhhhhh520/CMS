@@ -10,7 +10,7 @@
     <PackageReference Include="FreeSql" Version="3.2.697" />
     <PackageReference Include="FreeSql.Provider.MySql" Version="3.2.697" />
     <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.697" />
-    <PackageReference Include="Masa.Blazor" Version="0.6.2" />
+    <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.18" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
@@ -39,6 +39,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\imgs\aboutus\aboutus6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\imgs\avatar\2.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\imgs\bachelor\bachelor1.png">

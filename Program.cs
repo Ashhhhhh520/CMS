@@ -5,6 +5,8 @@ using FreeSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CMS;
+using BlazorComponent;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,11 @@ var fsql = new FreeSqlBuilder()
 builder.Services.AddSingleton(fsql);
 
 // add masa blazor ui components
-builder.Services.AddMasaBlazor();
+builder.Services.AddMasaBlazor(options =>
+{
+    // new Locale(current, fallback);
+    options.Locale = new Locale("en-US", "en-US");
+});
 
 builder.Services.AddHttpContextAccessor();
 
@@ -56,6 +62,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddScoped<NavHelper>();
+
+
 
 var app = builder.Build();
 
@@ -69,8 +78,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
-//app.UseAuthorization();
-//app.UseAuthentication();
+app.UseAuthorization();
+app.UseAuthentication();
 
 
 app.MapBlazorHub();

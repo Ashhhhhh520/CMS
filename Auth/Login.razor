@@ -42,7 +42,8 @@
     public NavigationManager Navigation { get; set; } = default!;
 
     [Inject]
-    public IPopupService PopupService { get; set; }
+    public IPopupService? PopupService { get; set; }
+
 
     [Parameter]
     public bool HideLogo { get; set; }
@@ -72,7 +73,7 @@
         }
         else
         {
-            await PopupService.AlertAsync(val.msg);
+            await PopupService!.EnqueueSnackbarAsync(val?.msg, AlertTypes.Warning);
         }
     }
 
@@ -84,52 +85,4 @@
             jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
         }
     }
-
-    //[Inject]
-    //NavigationManager navigationManager { get; set; }
-
-    //[Inject]
-    //AjaxService AjaxService { get; set; }
-
-    //[Inject]
-    //MessageService messageService { get; set; }
-
-    //UserModel user = new UserModel();
-
-    //async Task OnLogin()
-    //{
-    //    var option = new AjaxOption
-    //    {
-    //        Url = "api/Account/Login",
-    //        Data = user
-    //    };
-    //    var result = await AjaxService.InvokeAsync(option);
-    //    try
-    //    {
-    //        var str = result.RootElement.ToString();
-    //            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResultModel>(result.RootElement.ToString());
-    //        if (model.Code == 1)
-    //        {
-    //            navigationManager.NavigateTo("/", true);
-    //        }
-    //        else
-    //        {
-    //            await messageService.Show(new MessageOption { Content = model.Msg, Color = Color.Danger });
-    //        }
-    //    }
-    //    catch
-    //    {
-    //        await messageService.Show(new MessageOption { Content = "登录失败", Color = Color.Danger });
-    //        user.UserName = "";
-    //        user.Password = "";
-    //    }
-    //}
-
-    //async Task OnKeyup(KeyboardEventArgs e)
-    //{
-    //    if (e.Code == "Enter")
-    //    {
-    //        await OnLogin();
-    //    }
-    //}
 }
