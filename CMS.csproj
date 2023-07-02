@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql" Version="3.2.697" />
-    <PackageReference Include="FreeSql.Provider.MySql" Version="3.2.697" />
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.697" />
+    <PackageReference Include="FreeSql" Version="3.2.698-preview20230629" />
+    <PackageReference Include="FreeSql.Provider.MySql" Version="3.2.698-preview20230629" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.698-preview20230629" />
     <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.18" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

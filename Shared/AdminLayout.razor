@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@using CMS.AdminComponents.MenuComponents 
+<PageTitle>Administrator</PageTitle>
 <MApp>
     <CascadingValue Value="culture" Name="CultureName">
         <PPageTabsProvider>
@@ -51,11 +53,10 @@
         isLogin = httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
         if (isLogin)
         {
-            // 设置当前登录人信息
+            // show user name
             Name = httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "nobody";
         }
         return base.OnInitializedAsync();
     }
-
 }
 

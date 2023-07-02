@@ -54,13 +54,13 @@
     [Parameter]
     public StringNumber? Elevation { get; set; }
 
-    IJSObjectReference? jSObjectReference { get; set; }
-
     string? UserName { get; set; }
     string? Password { get; set; }
 
     public async Task OnLogin()
     {
+        var path = "/js/ajax.js";
+        var jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
         var result= await jSObjectReference!.InvokeAsync<System.Text.Json.JsonDocument>("execute",new CMS.AdminComponents.AjaxOption {
             Url= "api/Account/Login",
             Data=new UserModel { username=UserName,password=Password}
@@ -69,20 +69,13 @@
         var val = System.Text.Json.JsonSerializer.Deserialize<LoginResultModel>(result.RootElement.ToString());
         if(val?.code==1)
         {
-            Navigation.NavigateTo("/admin/home");
+            Navigation.NavigateTo("/admin/menu");
         }
         else
         {
-            await PopupService!.EnqueueSnackbarAsync(val?.msg, AlertTypes.Warning);
+            await PopupService!.EnqueueSnackbarAsync(val?.msg??"Login Error", AlertTypes.Warning);
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if(firstRender)
-        {
-            var path = "/js/ajax.js";
-            jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
-        }
-    }
+
 }

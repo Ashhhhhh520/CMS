@@ -23,16 +23,16 @@ namespace CMS.Controllers
         public async Task<LoginResultModel> Login(UserModel user)
         {
 
-            //var db_user = await freeSql.Select<users>()
-            //    .Where(a => a.UserName == user.UserName)
-            //    .FirstAsync();
+            var db_user = await freeSql.Select<users>()
+                .Where(a => a.UserName == user.username)
+                .FirstAsync();
 
-            var db_user = new users()
-            {
-                ID=1,
-                Name="666",
-                Password="123"
-            };
+            //var db_user = new users()
+            //{
+            //    ID=1,
+            //    Name="666",
+            //    Password="123"
+            //};
 
             if (db_user == null)
                 return new LoginResultModel { msg = "UserName Not Register!" };
@@ -74,5 +74,6 @@ namespace CMS.Controllers
         {
             return "1";
         }
+
     }
 }

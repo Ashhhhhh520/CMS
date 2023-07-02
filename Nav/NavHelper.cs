@@ -1,78 +1,40 @@
 ﻿namespace CMS;
 
-using BlazorComponent;
-using CMS.Nav.Model;
-using Microsoft.AspNetCore.Components;
-
-public class NavHelper
+public static class NavHelper
 {
-    private List<NavModel> _navList = new List<NavModel>
+    public static List<NavModel> Navs { get; } = new()
     {
-        new NavModel{ Title="Home",Href="/admin/home",Icon="mdi-trending-up"},
+        new NavModel{ Title="Menu",Href="/admin/menu",Icon="mdi-trending-up"},
+        //new NavModel{ Title="Content",Href="/admin/content/",Icon="mdi-trending-up"},
+        new NavModel{ Title="User",Href="/admin/user",Icon="mdi-trending-up"},
     };
-
-    private NavigationManager _navigationManager;
-
-    public List<NavModel> Navs { get; } = new();
-
-    public List<NavModel> SameLevelNavs { get; } = new();
-
-    public List<PageTabItem> PageTabItems { get; } = new();
-
-    public string CurrentUri => _navigationManager.Uri;
-
-    public NavHelper(NavigationManager navigationManager)
-    {
-        _navigationManager = navigationManager;
-        Initialization();
-    }
-
-    private void Initialization()
-    {
-        _navList.ForEach(nav =>
-        {
-            if (nav.Hide is false) Navs.Add(nav);
-
-            if (nav.Children is not null)
-            {
-                nav.Children = nav.Children.Where(c => c.Hide is false).ToArray();
-
-                nav.Children.ForEach(child =>
-                {
-                    child.ParentId = nav.Id;
-                    child.FullTitle = $"{nav.Title} {child.Title}";
-                    child.ParentIcon = nav.Icon;
-                });
-            }
-        });
-
-        Navs.ForEach(nav =>
-        {
-            SameLevelNavs.Add(nav);
-            if (nav.Children is not null) SameLevelNavs.AddRange(nav.Children);
-        });
-
-        SameLevelNavs.Where(nav => nav.Href is not null).ForEach(nav =>
-        {
-            // The following path will not open a new tab
-            if (nav.Href is "app/user/view" or "app/user/edit" or "app/ecommerce/details")
-            {
-                nav.Target = "Self";
-            }
-
-            PageTabItems.Add(new(nav.Title, nav.Href, nav.ParentIcon));
-        });
-    }
-
-    public void NavigateTo(NavModel nav)
-    {
-        _navigationManager.NavigateTo(nav.Href ?? "");
-    }
-
-    public void NavigateTo(string href)
-    {
-        _navigationManager.NavigateTo(href);
-    }
+    public static List<PageTabItem> PageTabItems { get; } = new();
 }
 
 public record PageTabItem(string Title, string Href, string Icon);
+
+public class NavModel
+{
+    public int Id { get; set; }
+
+    public int ParentId { get; set; }
+
+    public string? Href { get; set; }
+
+    public string? Icon { get; set; }
+
+    public string? ParentIcon { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? FullTitle { get; set; }
+
+    public bool Hide { get; set; }
+
+    public bool Active { get; set; }
+
+    public string? Target { get; set; }
+
+    public NavModel[]? Children { get; set; }
+
+}

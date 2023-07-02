@@ -1,0 +1,11 @@
+﻿
+@layout AdminLayout
+@attribute [Authorize]
+@page "/admin/content/{id:int}"
+
+<h3>Content : @id</h3>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+}
