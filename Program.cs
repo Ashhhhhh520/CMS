@@ -15,7 +15,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 var fsql = new FreeSqlBuilder()
-    .UseConnectionString(DataType.MySql, builder.Configuration.GetConnectionString("DB"))
+    .UseConnectionString(Enum.Parse<DataType>(builder.Configuration.GetConnectionString("DbType")), builder.Configuration.GetConnectionString("DB"))
     .UseMonitorCommand(cmd =>
     {
 #if DEBUG
@@ -23,6 +23,9 @@ var fsql = new FreeSqlBuilder()
 #endif
     })
     .Build();
+
+
+await DatabaseInit.OnDatabaseInit(fsql);
 
 //add orm
 builder.Services.AddSingleton(fsql);

@@ -48,7 +48,7 @@ namespace @gen.NameSpace {
 	@:/// @gen.table.Comment.Replace("\r\n", "\n").Replace("\n", "\r\n		/// ")
 	@:/// </summary>
 }
-	[JsonObject(MemberSerialization.OptIn)@GetAttributeString(gen.GetTableAttribute())]
+	[JsonObject(MemberSerialization.OptIn)]
 	public partial class @gen.GetCsName(gen.FullTableName) {
 
 	@foreach (var col in gen.columns) {

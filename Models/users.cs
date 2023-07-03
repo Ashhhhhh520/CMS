@@ -9,7 +9,7 @@ using FreeSql.DataAnnotations;
 
 namespace CMS.Models {
 
-	[JsonObject(MemberSerialization.OptIn), Table(DisableSyncStructure = true)]
+	[JsonObject(MemberSerialization.OptIn)]
 	public partial class users {
 
 		[JsonProperty, Column(DbType = "int", IsPrimary = true)]

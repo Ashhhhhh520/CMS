@@ -19,7 +19,7 @@
         @if (context.Header.Value == "actions")
         {
             <MIcon Small Class="mr-2" OnClick="()=> OnEditMenu(context.Item)">mdi-pencil</MIcon>
-            <MIcon Small Class="mdi-card-bulleted-settings" OnClick="()=>OnEditContent(context.Item.ID)" >settings</MIcon>
+            <MIcon Small Class="mdi-card-bulleted-settings" OnClick="()=>OnEditContent(context.Item)" >settings</MIcon>
             <MIcon Small OnClick="async ()=> await OnDeleteMenu(context.Item)">mdi-delete</MIcon>
         }
         else
@@ -40,10 +40,10 @@
         <MCardText>
             <MContainer>
                 <MRow>
-                    <MCol Cols="12" Sm="6" Md="4">
+                    <MCol Cols="12">
                         <MTextField @bind-Value="MenuEditor.Menu" Label="Menu Name"></MTextField>
                     </MCol>
-                    <MCol Cols="12" Sm="6" Md="4">
+                    <MCol Cols="12">
                         <MTextField @bind-Value="MenuEditor.Sort" Type="number" Label="Sort"></MTextField>
                     </MCol>
                 </MRow>
