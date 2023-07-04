@@ -4,45 +4,63 @@
 @page "/admin/content/{Menu}/{Id:int}"
 
 <MRow>
-
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.ModuleName" Label="Name" />
+    </MCol>
+    <MCol Cols="3">
+        <MTextField @bind-Value="Searcher.Content" Label="Content" />
+    </MCol>
+    <MCol Cols="3">
+        <MRadioGroup @bind-Value="Searcher.Type" Column="false">
+            <MRadio Label="All" Value="-1" />
+            <MRadio Label="Text" Value="0" />
+            <MRadio Label="Img" Value="1" />
+        </MRadioGroup>
+    </MCol>
+    <MCol Cols="3">
+        <MButton OnClick="OnQuery" Color="orange">Search</MButton>
+    </MCol>
 </MRow>
 
-<MDataTable Stripe FixedRight
-            Headers="Headers"
-            ItemsPerPage="100"
-            Items="Items">
+<MRow>
+    <MDataTable Stripe FixedRight
+                Headers="Headers"
+                ItemsPerPage="100"
+                Items="Items">
 
-    <TopContent>
-        <MToolbar Flat>
-            <MToolbarTitle>Content Editor</MToolbarTitle>
-            <MSpacer></MSpacer>
-            <MButton Color="primary" Dark OnClick="()=>OnEditContent(new  Models.contents { MenuID=Id })">New Content</MButton>
-        </MToolbar>
-    </TopContent>
+        <TopContent>
+            <MToolbar Flat>
+                <MToolbarTitle>Content Editor</MToolbarTitle>
+                <MSpacer></MSpacer>
+                <MButton Color="primary" Dark OnClick="()=>OnEditContent(new  Models.contents { MenuID=Id })">New Content</MButton>
+            </MToolbar>
+        </TopContent>
 
-    <ItemColContent>
-        @if (context.Header.Value == "actions")
-        {
-            <MIcon Small Class="mr-2" OnClick="()=> OnEditContent(context.Item)">mdi-pencil</MIcon>
-            <MIcon Small OnClick="async ()=> await OnDeleteContent(context.Item)">mdi-delete</MIcon>
-        }
-        else if (context.Header.Value == "Type")
-        {
-            if (context?.Value?.ToString() == "1")
+        <ItemColContent>
+            @if (context.Header.Value == "actions")
             {
-                <MIcon Small>mdi-image-area</MIcon>
+                <MIcon Small Class="mr-2" OnClick="()=> OnEditContent(context.Item)">mdi-pencil</MIcon>
+                <MIcon Small OnClick="async ()=> await OnDeleteContent(context.Item)">mdi-delete</MIcon>
+            }
+            else if (context.Header.Value == "Type")
+            {
+                if (context?.Value?.ToString() == "1")
+                {
+                    <MIcon Small>mdi-image-area</MIcon>
+                }
+                else
+                {
+                    <MIcon Small>mdi-text-box-edit-outline</MIcon>
+                }
             }
             else
             {
-                <MIcon Small>mdi-text-box-edit-outline</MIcon>
+                @context.Value
             }
-        }
-        else
-        {
-            @context.Value
-        }
-    </ItemColContent>
-</MDataTable>
+        </ItemColContent>
+    </MDataTable>
+</MRow>
+
 
 <MDialog @bind-Value="EditDialog"
          MaxWidth="500">

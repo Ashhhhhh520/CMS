@@ -1,5 +1,6 @@
 ﻿using BlazorComponent;
 using CMS.Models;
+using Force.DeepCloner;
 using Masa.Blazor;
 using Masa.Blazor.Presets;
 using Microsoft.AspNetCore.Components;
@@ -49,6 +50,8 @@ namespace CMS.Pages.AdminPages
         };
 
         contents ContentEditor { get; set; }=new contents();
+
+        contents Searcher { get; set; }=new contents() { Type=-1 };
         IBrowserFile BrowserFile { get; set; }
         bool EditDialog { get; set; }
 
@@ -61,14 +64,17 @@ namespace CMS.Pages.AdminPages
         async Task OnQuery()
         {
             Items = await FreeSql.Select<contents>()
-                            .Where(a => !a.IsDelete && a.MenuID == Id)
-                            .ToListAsync();
+                .WhereIf(!string.IsNullOrEmpty(Searcher.ModuleName),a=>a.ModuleName.Contains(Searcher.ModuleName))
+                .WhereIf(!string.IsNullOrEmpty(Searcher.Content),a=>a.Content.Contains(Searcher.Content))
+                .WhereIf(Searcher.Type!=-1, a => a.Type==Searcher.Type)
+                .Where(a => !a.IsDelete && a.MenuID == Id)
+                .ToListAsync();
             await InvokeAsync(StateHasChanged);
         }
 
         void OnEditContent(contents content)
         {
-            ContentEditor = content;
+            ContentEditor = content.DeepClone();
             EditDialog = true;
             BrowserFile = null;
         }

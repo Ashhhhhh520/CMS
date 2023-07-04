@@ -16,18 +16,21 @@ namespace CMS.Models {
 		public int ID { get; set; }
 
 		[JsonProperty, Column(DbType = "datetime")]
-		public DateTime? AddDate { get; set; }
+		public DateTime AddDate { get; set; }
 
 		[JsonProperty]
+		public bool IsDelete { get; set; }
+
+		[JsonProperty, Column(IsNullable = false)]
 		public string Name { get; set; }
 
-		[JsonProperty]
+		[JsonProperty, Column(IsNullable = false)]
 		public string Password { get; set; }
 
 		[JsonProperty, Column(DbType = "int")]
-		public int? Sex { get; set; }
+		public int Sex { get; set; }
 
-		[JsonProperty]
+		[JsonProperty, Column(IsNullable = false)]
 		public string UserName { get; set; }
 
 	}

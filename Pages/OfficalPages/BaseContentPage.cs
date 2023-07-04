@@ -17,7 +17,6 @@ namespace CMS.Pages.OfficalPages
 
         protected List<contents> Contents { get; set; }=new List<contents>();
 
-
         protected override async Task OnInitializedAsync()
         {
             Contents = await freeSql.Select<menus,contents>()

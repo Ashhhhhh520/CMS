@@ -2,32 +2,42 @@
 @attribute [Authorize]
 @page "/admin/menu"
 
-<MDataTable Stripe FixedRight
-            Headers="Headers"
-            Items="Items"
-            >
+<MRow>
+    <MCol Cols="4">
+        <MTextField @bind-Value="Searcher.Menu" Label="Menu" />
+    </MCol>
+    <MCol Cols="4">
+        <MButton OnClick="QueryMenus" Color="orange">Search</MButton>
+    </MCol>
+</MRow>
 
-    <TopContent>
-        <MToolbar Flat>
-            <MToolbarTitle>Menu Editor</MToolbarTitle>
-            <MSpacer></MSpacer>
-            <MButton Color="primary" Dark OnClick="()=>OnEditMenu(new Models.menus { })">New Menu</MButton>
-        </MToolbar>
-    </TopContent>
+<MRow>
+    <MDataTable Stripe FixedRight
+                Headers="Headers"
+                Items="Items">
+        <TopContent>
+            <MToolbar Flat>
+                <MToolbarTitle>Menu Editor</MToolbarTitle>
+                <MSpacer></MSpacer>
+                <MButton Color="primary" Dark OnClick="()=>OnEditMenu(new Models.menus { })">New Menu</MButton>
+            </MToolbar>
+        </TopContent>
 
-    <ItemColContent>
-        @if (context.Header.Value == "actions")
-        {
-            <MIcon Small Class="mr-2" OnClick="()=> OnEditMenu(context.Item)">mdi-pencil</MIcon>
-            <MIcon Small Class="mdi-card-bulleted-settings" OnClick="()=>OnEditContent(context.Item)" >settings</MIcon>
-            <MIcon Small OnClick="async ()=> await OnDeleteMenu(context.Item)">mdi-delete</MIcon>
-        }
-        else
-        {
-            @context.Value
-        }
-    </ItemColContent>
-</MDataTable>
+        <ItemColContent>
+            @if (context.Header.Value == "actions")
+            {
+                <MIcon Small Class="mr-2" OnClick="()=> OnEditMenu(context.Item)">mdi-pencil</MIcon>
+                <MIcon Small Class="mdi-card-bulleted-settings" OnClick="()=>OnEditContent(context.Item)">settings</MIcon>
+                <MIcon Small OnClick="async ()=> await OnDeleteMenu(context.Item)">mdi-delete</MIcon>
+            }
+            else
+            {
+                @context.Value
+            }
+        </ItemColContent>
+    </MDataTable>
+</MRow>
+
 
 
 <MDialog @bind-Value="EditDialog"

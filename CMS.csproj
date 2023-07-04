@@ -39,7 +39,7 @@
     <Content Update="wwwroot\imgs\aboutus\aboutus6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\imgs\avatar\2.svg">
+    <Content Update="wwwroot\imgs\avatar\1.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\imgs\bachelor\bachelor1.png">

@@ -18,6 +18,8 @@ namespace CMS.Pages.AdminPages
 
         bool EditDialog { get; set; }
 
+        menus Searcher { get; set; } = new menus();
+
         menus MenuEditor { get; set; } = new menus();
 
         List<DataTableHeader<menus>> Headers { get; set; } = new List<DataTableHeader<menus>>()
@@ -42,6 +44,7 @@ namespace CMS.Pages.AdminPages
         async Task QueryMenus()
         {
             Items = await FreeSql.Select<menus>()
+                .WhereIf(!string.IsNullOrEmpty(Searcher.Menu),a=>a.Menu.Contains(Searcher.Menu))
                 .Where(a => !a.IsDelete)
                 .OrderBy(a => a.Sort)
                 .ToListAsync();

@@ -1,5 +1,4 @@
-﻿using FreeSql.DatabaseModel;
-using System;
+﻿using FreeSql.DatabaseModel;using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
