@@ -1,4 +1,11 @@
 @page "/holiday"
+@inherits BaseContentPage
+@code{
+    public Holiday() : base("Holiday")
+    {
+
+    }
+}
 
 <style scoped>
     .my_holiday_title {
@@ -15,209 +22,211 @@
     }
 
     .my_holiday_month {
-        line-height:70px;
+        line-height: 70px;
     }
 
-    .my_backgroundimg > div{
-        margin:1em;
+    .my_backgroundimg > div {
+        margin: 1em;
     }
 
     .my_holiday_content {
         text-align: center;
         font-size: 14px;
-        font-weight:600;
+        font-weight: 600;
     }
 </style>
 
-@*<div style="position:relative;height:auto;">
-    <div style="z-index:2;width:100%;position:relative;">
-        @for(int i = 0; i < 10; i++)
-            {
-                <MRow Class="my_backgroundimg my_justily_content">
-                    <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
-                        University Key Dates
-                    </div>
-                    <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
-                        In Singapore
-                    </div>
+
+
+
+
+<div class="my_flex_container">
+        <div class="my_flex_content">
+            <MRow Class="my_backgroundimg my_justily_content">
+                <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+                    @Contents.FirstOrDefault(a=>a.ModuleName== "title1")?.Content
+                </div>
+                <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+                    @Contents.FirstOrDefault(a => a.ModuleName == "title2")?.Content
+                </div>
+            </MRow>
+            <MRow Class="my_backgroundimg my_justily_content">
+                @foreach (var item in Contents.Where(a => a.ModuleName.Contains("part")).GroupBy(a => a.ModuleName))
+                {
                     <div class="my_holiday_title my_holiday_month">
-                        January
+                        @item.Key
                     </div>
                     <pre class="my_holiday_content">
-9th
-Singapore Trimester 1 - Commences
-16th
-Singapore Trimester 3 - Fully Graded Date - 9am
-20th
-Singapore Trimester 1 - Last day to add a course through myHub without approval
-    </pre>
-                </MRow>
+                        @item.OrderBy(a=>a.Remark).LastOrDefault()?.Content
+                    </pre>
+                }
+            </MRow>
+        </div>
+
+
+        <div class="my_flex_backgound">
+            @{ 
+                foreach (var item in Contents.Where(a=>a.ModuleName=="imgs").OrderBy(a=>a.Remark))
+                {
+                      <img style="flex:1;width:100%;" src="@item.Content" />
+                }
             }
-    </div>
-
-
-    <div style="display:flex;flex-direction:column;position:absolute;left:0;top:0;z-index:1;height:100%;width:100%;overflow:hidden;">
-        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday1.png"/>
-        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday2.png"/>
-        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday3.png"/>
-        <img style="flex:1;width:100%;" src="/imgs/holiday/holiday4.png"/>
-    </div>
-
-</div>*@
+        </div>
+</div>
 
 
 
 
-<MRow Style="background-image: url(imgs/holiday/holiday1.png)" Class="my_backgroundimg my_justily_content">
-    <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
-        University Key Dates
-    </div>
-    <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
-        In Singapore
-    </div>
-    <div class="my_holiday_title my_holiday_month">
-        January
-    </div>
-    <pre class="my_holiday_content">
-9th
-Singapore Trimester 1 - Commences
-16th
-Singapore Trimester 3 - Fully Graded Date - 9am
-20th
-Singapore Trimester 1 - Last day to add a course through myHub without approval
-    </pre>
-</MRow>
+@*<MRow Style="background-image: url(imgs/holiday/holiday1.png)" Class="my_backgroundimg my_justily_content">
+        <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+            University Key Dates
+        </div>
+        <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+            In Singapore
+        </div>
+        <div class="my_holiday_title my_holiday_month">
+            January
+        </div>
+        <pre class="my_holiday_content">
+    9th
+    Singapore Trimester 1 - Commences
+    16th
+    Singapore Trimester 3 - Fully Graded Date - 9am
+    20th
+    Singapore Trimester 1 - Last day to add a course through myHub without approval
+        </pre>
+    </MRow>
 
-<MRow Style="background-image: url(imgs/holiday/holiday2.png)" Class="my_backgroundimg my_justily_content">
-    <div class="my_holiday_title my_holiday_month">
-        February
-    </div>
-    <pre class="my_holiday_content">
-3rd
-Singapore Trimester 1 - Census Date
-18th
-Singapore Trimester 1 - Recess
-February 18th - February 26th
-    </pre>
+    <MRow Style="background-image: url(imgs/holiday/holiday2.png)" Class="my_backgroundimg my_justily_content">
+        <div class="my_holiday_title my_holiday_month">
+            February
+        </div>
+        <pre class="my_holiday_content">
+    3rd
+    Singapore Trimester 1 - Census Date
+    18th
+    Singapore Trimester 1 - Recess
+    February 18th - February 26th
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        March
-    </div>
-    <pre class="my_holiday_content">
-20th
-Singapore Trimester 1 - Course Experience Survey
-March 20th - April 30th
-    </pre>
+        <div class="my_holiday_title my_holiday_month">
+            March
+        </div>
+        <pre class="my_holiday_content">
+    20th
+    Singapore Trimester 1 - Course Experience Survey
+    March 20th - April 30th
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        April
-    </div>
-    <pre class="my_holiday_content">
-14th
-Singapore Trimester 1 - Concludes
-17th
-Singapore Trimester 1 - Examinations
-April 17th - April 28th
-    </pre>
-</MRow>
+        <div class="my_holiday_title my_holiday_month">
+            April
+        </div>
+        <pre class="my_holiday_content">
+    14th
+    Singapore Trimester 1 - Concludes
+    17th
+    Singapore Trimester 1 - Examinations
+    April 17th - April 28th
+        </pre>
+    </MRow>
 
-<MRow Style="background-image: url(imgs/holiday/holiday3.png)" Class="my_backgroundimg my_justily_content">
-    <div class="my_holiday_title my_holiday_month">
-        May
-    </div>
-    <pre class="my_holiday_content">
-8th
-Singapore Trimester 2 - Commences
-11th
-Singapore Trimester 1 - Fully Graded Date - 9am
-17th
-Singapore Trimester 1 - Rescheduled Examinations
-May 17th - May 23rd
-19th
-Singapore Trimester 2 - Last day to add a course through myHub without approval
-    </pre>
+    <MRow Style="background-image: url(imgs/holiday/holiday3.png)" Class="my_backgroundimg my_justily_content">
+        <div class="my_holiday_title my_holiday_month">
+            May
+        </div>
+        <pre class="my_holiday_content">
+    8th
+    Singapore Trimester 2 - Commences
+    11th
+    Singapore Trimester 1 - Fully Graded Date - 9am
+    17th
+    Singapore Trimester 1 - Rescheduled Examinations
+    May 17th - May 23rd
+    19th
+    Singapore Trimester 2 - Last day to add a course through myHub without approval
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        June
-    </div>
-    <pre class="my_holiday_content">
-2nd
-Singapore Trimester 2 - Census Date
-24th
-Singapore Trimester 1 - Recess
-June 24th - July 2nd
-    </pre>
+        <div class="my_holiday_title my_holiday_month">
+            June
+        </div>
+        <pre class="my_holiday_content">
+    2nd
+    Singapore Trimester 2 - Census Date
+    24th
+    Singapore Trimester 1 - Recess
+    June 24th - July 2nd
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        July
-    </div>
-    <pre class="my_holiday_content">
-17th
-Singapore Trimester 2 - Course Experience Survey
-July 17th - August 27th
-    </pre>
-</MRow>
+        <div class="my_holiday_title my_holiday_month">
+            July
+        </div>
+        <pre class="my_holiday_content">
+    17th
+    Singapore Trimester 2 - Course Experience Survey
+    July 17th - August 27th
+        </pre>
+    </MRow>
 
-<MRow Style="background-image: url(imgs/holiday/holiday4.png)" Class="my_backgroundimg my_justily_content">
-    <div class="my_holiday_title my_holiday_month">
-        August
-    </div>
-    <pre class="my_holiday_content">
-11th
-Singapore Trimester 2 - Concludes
-14th
-Singapore Trimester 2 - Examinations
-August 14th - August 24th
-    </pre>
+    <MRow Style="background-image: url(imgs/holiday/holiday4.png)" Class="my_backgroundimg my_justily_content">
+        <div class="my_holiday_title my_holiday_month">
+            August
+        </div>
+        <pre class="my_holiday_content">
+    11th
+    Singapore Trimester 2 - Concludes
+    14th
+    Singapore Trimester 2 - Examinations
+    August 14th - August 24th
+        </pre>
 
 
-    <div class="my_holiday_title my_holiday_month">
-        September
-    </div>
-    <pre class="my_holiday_content">
-4th
-Singapore Trimester 3 - Commences
-7th
-Singapore Trimester 2 - Fully Graded Date - 9am
-13th
-Singapore Trimester 2 -Rescheduled Examinations
-September 13th - September 19th
-15th
-Singapore Trimester 3 - Last day to add a course through myHub without approval
-29th
-Singapore Trimester 3 - Census Date
-    </pre>
+        <div class="my_holiday_title my_holiday_month">
+            September
+        </div>
+        <pre class="my_holiday_content">
+    4th
+    Singapore Trimester 3 - Commences
+    7th
+    Singapore Trimester 2 - Fully Graded Date - 9am
+    13th
+    Singapore Trimester 2 -Rescheduled Examinations
+    September 13th - September 19th
+    15th
+    Singapore Trimester 3 - Last day to add a course through myHub without approval
+    29th
+    Singapore Trimester 3 - Census Date
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        October
-    </div>
-    <pre class="my_holiday_content">
-14th
-Singapore Trimester 3 - Recess
-October 14th - October 22nd
-    </pre>
-</MRow>
+        <div class="my_holiday_title my_holiday_month">
+            October
+        </div>
+        <pre class="my_holiday_content">
+    14th
+    Singapore Trimester 3 - Recess
+    October 14th - October 22nd
+        </pre>
+    </MRow>
 
-<MRow Style="background-image: url(imgs/holiday/holiday5.png)" Class="my_backgroundimg my_justily_content">
-    <div class="my_holiday_title my_holiday_month">
-        November
-    </div>
-    <pre class="my_holiday_content">
-13th
-Singapore Trimester 3- Course Experience Survey
-November 13th - December 24th
-18th
-Singapore graduation ceremony
-    </pre>
+    <MRow Style="background-image: url(imgs/holiday/holiday5.png)" Class="my_backgroundimg my_justily_content">
+        <div class="my_holiday_title my_holiday_month">
+            November
+        </div>
+        <pre class="my_holiday_content">
+    13th
+    Singapore Trimester 3- Course Experience Survey
+    November 13th - December 24th
+    18th
+    Singapore graduation ceremony
+        </pre>
 
-    <div class="my_holiday_title my_holiday_month">
-        December
-    </div>
-    <pre class="my_holiday_content">
-8th
-Singapore Trimester 3 - Concludes
-11th
-Singapore Trimester 3 - Examinations
-December 11th - December 21st
-    </pre>
-</MRow>
+        <div class="my_holiday_title my_holiday_month">
+            December
+        </div>
+        <pre class="my_holiday_content">
+    8th
+    Singapore Trimester 3 - Concludes
+    11th
+    Singapore Trimester 3 - Examinations
+    December 11th - December 21st
+        </pre>
+    </MRow>*@

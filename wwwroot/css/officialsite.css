@@ -72,3 +72,26 @@
 .my_backgroundimg{
     background-size:cover;
 }
+
+.my_flex_container {
+    position: relative;
+    height: auto;
+}
+
+.my_flex_content {
+    z-index: 2;
+    width: 100%;
+    position: relative;
+}
+
+.my_flex_backgound {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}

@@ -130,6 +130,9 @@ namespace CMS.Pages.AdminPages
                 if(!Directory.Exists(folder))
                     Directory.CreateDirectory(folder);
                 var root_path = Path.Combine(folder, filename);
+                if(File.Exists(root_path))
+                    File.Delete(root_path);
+
                 // wwwroot/imgs/{menu}/filename
                 var releative_path = Path.Combine("imgs", Menu, filename);
                 using var fs = File.Create(root_path);

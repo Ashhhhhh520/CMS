@@ -1,4 +1,11 @@
 ﻿@page "/facilities"
+@inherits BaseContentPage
+@code{
+    public Facilities() : base("Facilities")
+    {
+
+    }
+}
 
 
 <style scoped>
@@ -33,28 +40,8 @@
     }
 </style>
 
-@*<MRow Style="background-image: url(imgs/facilities/facilities1.png) " Class="my_backgroundimg my_justily_content">
-        <div class="my_facilities_title">
-            CAMPUS FACILITIES
-        </div>
-        <MRow Class="flex-center">
-            <div class="my_facilities_title my_facilities_item">
-                Life Science Laboratories
-            </div>
-        </MRow>
 
-        @for(int i=2;i<=6;i++)
-                    {
-            var path = $"imgs/facilities/facilities{i}.png";
-            <MCol Cols="3">
-                <MImage Src="@path" Width="400"/>
-            </MCol>
-                    }
-
-
-    </MRow>*@
-
-<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="1" Items="@Part1">
+@*<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="1" Items="@Part1">
     <Header>
         <div class="my_facilities_title">
             CAMPUS FACILITIES
@@ -64,14 +51,54 @@
 
 <CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="25" Items="@Part2" />
 
-<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="26" Items="@Part3" />
+<CMS.OfficialComponents.FacilitiesItemComponent BackgroundImg="26" Items="@Part3" />*@
+
+<div class="my_flex_container">
+    <div class="my_flex_content">
+        @foreach (var item in Contents.Where(a => a.ModuleName.Contains("part")).GroupBy(a => a.ModuleName))
+        {
+            <MRow Class="my_backgroundimg my_justily_content">
+                <MRow Class="flex-center">
+                    <div class="my_facilities_title my_facilities_item">
+                        @item.FirstOrDefault(a => a.Type == 0)?.Content
+                    </div>
+                </MRow>
+                @foreach (var img in item.Where(a => a.Type == 1))
+                {
+                    <MCol Cols="3">
+                        <MImage Src="@img.Content" Width="450" />
+                    </MCol>
+                }
+            </MRow>
+        }
+        @*<MRow Class="my_backgroundimg my_justily_content">
+            <div class="my_font_family my_holiday_title" style="color:black;font-size:34px;background-color:unset;box-shadow:unset;">
+                @Contents.FirstOrDefault(a => a.ModuleName == "title1")?.Content
+            </div>
+            <div class="my_holiday_title" style="background-color: unset; box-shadow: unset; color: #8D5858 ">
+                @Contents.FirstOrDefault(a => a.ModuleName == "title2")?.Content
+            </div>
+        </MRow>
+        <MRow Class="my_backgroundimg my_justily_content">
+
+        </MRow>*@
+    </div>
+    <div class="my_flex_backgound">
+        @{
+            foreach (var item in Contents.Where(a => a.ModuleName == "background").OrderBy(a => a.Remark))
+            {
+                <img style="flex:1;width:100%;" src="@item.Content" />
+            }
+        }
+    </div>
+</div>
 
 
 <MRow>
-    <MImage Src="imgs/facilities/facilities27.png"/>
+    <MImage Src="@Contents.FirstOrDefault(a=>a.ModuleName=="foot")?.Content" />
 </MRow>
 
-@code{
+@*@code{
     List<CMS.OfficialComponents.FacilitiesItem> Part1 = new List<OfficialComponents.FacilitiesItem>
 {
         new OfficialComponents.FacilitiesItem
@@ -93,11 +120,11 @@
 
 
     List<CMS.OfficialComponents.FacilitiesItem> Part2 = new List<OfficialComponents.FacilitiesItem>
-    {
+{
         new OfficialComponents.FacilitiesItem
         {
             ItemTitle="Lecture Theatres",
-            Imgs=new List<int>{11,12,13,14} 
+            Imgs=new List<int>{11,12,13,14}
         },
         new OfficialComponents.FacilitiesItem
         {
@@ -107,11 +134,11 @@
     };
 
     List<CMS.OfficialComponents.FacilitiesItem> Part3 = new List<OfficialComponents.FacilitiesItem>
-    {
+{
         new OfficialComponents.FacilitiesItem
         {
             ItemTitle="Common Spaces",
             Imgs=new List<int>{17,18,19,20,21,22,23}
         }
     };
-}
+}*@

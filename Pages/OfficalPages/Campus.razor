@@ -1,4 +1,11 @@
 ﻿@page "/campus"
+@inherits BaseContentPage
+@code{
+    public Campus() : base("Contact Us")
+    {
+
+    }
+}
 
 <style scoped>
     .my_campus_content {
@@ -10,18 +17,21 @@
 </style>
 
 <MRow>
-    <MImage Src="imgs/campus/campus1.png"/>
+    <MImage Src="@Contents.FirstOrDefault(a=>a.ModuleName=="head")?.Content" />
 </MRow>
 
 <MRow Class="text-lg-center" Style="background-color: #e5e5e5;">
     <div style="color: #d95050; font-size: 36px; height: 5em; display: flex; justify-content: center; align-items: center;">
-        <span class="my_shadow_title">Our campus location</span>
+        <span class="my_shadow_title">@Contents.FirstOrDefault(a => a.ModuleName == "part1")?.Content</span>
     </div>
 </MRow>
+@{
+    var img = $"background-image:url('{GetContent("part2", 1)}');height:380px;text-align:center;vertical-align:middle;background-size:cover;";
+    <MRow Style="@img">
+        <span style="color: #672d2d;line-height:380px;font-size:36px;font-family:fantasy;opacity:0.6;">@GetContent("part2")</span>
+    </MRow>
+}
 
-<MRow Style="background-image:url(imgs/campus/campus2.png);height:380px;text-align:center;vertical-align:middle;background-size:cover;">
-    <span style="color: #672d2d;line-height:380px;font-size:36px;font-family:fantasy;opacity:0.6;">Signapore</span>
-</MRow>
 
 <MRow>
     <MCol Cols="8">
@@ -29,61 +39,41 @@
     </MCol>
     <MCol Cols="4">
         <div style="margin: 14px; background-color: #ededed; text-align: center; padding: 5px; font-size: 12px; color: #5d1b1b;font-weight:600 ">
-            <p>There are many buses that you can take to bus stops</p>
-            <p>located near PSB Academy’s City Campus.</p>
-            <p>These include the following:</p>
-            <p>. Bus Stop at Promenade Station/Pan Pacific:</p>
-            <p>. Served by 36, 36B, 97, 97e, 107M, and 961M</p>
-            <p>. Bus Stop at The Esplanade or The Float @("@") Marina Bay:</p>
-            <p>. Served by buses 36, 36B, 56, 70M, 75, 77, 97, 97e, 106, 111,133, 162M, 195, 195A, 857, 960, 960e, and 961M</p>
+            @{
+                foreach (var item in GetContent("part3")?.Split("\r\n") ?? new string[] { })
+                {
+                    <p>@item</p>
+                }
+            }
+            @*<p>There are many buses that you can take to bus stops</p>
+                <p>located near PSB Academy’s City Campus.</p>
+                <p>These include the following:</p>
+                <p>. Bus Stop at Promenade Station/Pan Pacific:</p>
+                <p>. Served by 36, 36B, 97, 97e, 107M, and 961M</p>
+                <p>. Bus Stop at The Esplanade or The Float @("@") Marina Bay:</p>
+                <p>. Served by buses 36, 36B, 56, 70M, 75, 77, 97, 97e, 106, 111,133, 162M, 195, 195A, 857, 960, 960e, and 961M</p>*@
         </div>
     </MCol>
 </MRow>
 
-<MRow Style="background-image:url(imgs/campus/campus3.png);background-size:cover;">
-<MImage Src="imgs/campus/campus4.png"/>
+@{
+    string bg = $"background-image:url('{GetContent("part5",1)}');background-size:cover;";
 
-    <MRow>
-        <div class="my_campus_content">
-            <pre>
-Office Locations——
+    <MRow Style="@bg">
+        <MImage Src="@GetContent("part4")" />
 
-Singapore Corporate Office
-Phone: +65 6221 3306
-Fax: +65 6221 3307
-Email: singapore-enquiry@newcastle.edu.au
-Location / Postal Address100 Victoria Street,#13-01/02, National Library Building,Singapore 188064
-
-Newcastle, Australia
-Phone: +61 2 4921 5000
-Fax: +61 2 4985 4200
-Enquire Online: AskUoN
-Location / Postal AddressUniversity DriveCallaghan NSW 2308Australia
+        <MRow>
+            <div class="my_campus_content">
+                <pre>
+@GetContent("part5")
 </pre>
-        </div>
+            </div>
 
-        <div class="my_campus_content">
-            <pre>
-Enquiries——
-
-General
-Email: singapore-enquiry@newcastle.edu.au
-
-Career Opportunity
-Email: singapore-careers@newcastle.edu.au
-
-Student Matters
-Email: singapore-studentcentral@newcastle.edu.au
-
-Academic Staff
-Email: singapore-acadadmin@newcastle@edu.au
-
-Data Protection
-Email: singapore-dpo@newcastle.edu.au
-
-Marketing, Events and Partnerships
-Email: singapore-marketing@newcastle.edu.au
+            <div class="my_campus_content">
+                <pre>
+@GetContent("part6")
 </pre>
-        </div>
+            </div>
+        </MRow>
     </MRow>
-</MRow>
+}
