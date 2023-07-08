@@ -22,6 +22,16 @@ namespace CMS.Pages.OfficalPages
             return Contents.FirstOrDefault(a => a.ModuleName == part&&a.Type==type)?.Content;
         }
 
+        protected string? GetImg(string part, int type = 1)
+        {
+            return Contents.FirstOrDefault(a => a.ModuleName == part && a.Type == type)?.Content;
+        }
+
+        protected IEnumerable<contents> GetContents(string part,int type=0)
+        {
+            return Contents.Where(a => a.ModuleName == part && a.Type == type);                
+        }
+
         protected override async Task OnInitializedAsync()
         {
             Contents = await freeSql.Select<menus,contents>()

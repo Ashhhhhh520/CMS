@@ -44,6 +44,9 @@
     [Inject]
     public IPopupService? PopupService { get; set; }
 
+    [Inject]
+    public CMS.AdminComponents.AjaxService Ajax { get; set; }
+
 
     [Parameter]
     public bool HideLogo { get; set; }
@@ -59,17 +62,24 @@
 
     public async Task OnLogin()
     {
-        var path = "/js/ajax.js";
-        var jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
-        var result= await jSObjectReference!.InvokeAsync<System.Text.Json.JsonDocument>("execute",new CMS.AdminComponents.AjaxOption {
-            Url= "api/Account/Login",
-            Data=new UserModel { username=UserName,password=Password}
+        //var path = "/js/ajax.js";
+        //var jSObjectReference = await jSRuntime!.InvokeAsync<IJSObjectReference>(identifier: "import", $"{path}");
+        //var result= await jSObjectReference!.InvokeAsync<System.Text.Json.JsonDocument>("execute",new CMS.AdminComponents.AjaxOption {
+        //    Url= "api/Account/Login",
+        //    Data=new UserModel { username=UserName,password=Password}
+        //});
+
+        //var val = System.Text.Json.JsonSerializer.Deserialize<LoginResultModel>(result.RootElement.ToString());
+
+        var val = await Ajax.Execute<LoginResultModel>(new AdminComponents.AjaxOption
+        {
+            Data = new UserModel { username = UserName, password = Password },
+            Url= "api/Account/Login"
         });
 
-        var val = System.Text.Json.JsonSerializer.Deserialize<LoginResultModel>(result.RootElement.ToString());
-        if(val?.code==1)
+        if (val?.code==1)
         {
-            Navigation.NavigateTo("/admin/menu");
+            Navigation.NavigateTo("/admin/menu",true);
         }
         else
         {

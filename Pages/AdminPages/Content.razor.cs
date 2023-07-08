@@ -31,7 +31,7 @@ namespace CMS.Pages.AdminPages
 
         [CascadingParameter]
         private IPageTabsProvider? PageTabsProvider { get; set; }
-
+        const string PreModuelName = "part";
         List<contents> Items { get; set; }=new List<contents>();
 
         List<DataTableHeader<contents>> Headers { get; set; } = new List<DataTableHeader<contents>>()

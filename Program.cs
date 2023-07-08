@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CMS;
 using BlazorComponent;
+using CMS.AdminComponents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ var fsql = new FreeSqlBuilder()
     .Build();
 
 
-await DatabaseInit.OnDatabaseInit(fsql);
+await DatabaseInit.OnDatabaseInit(fsql,builder);
 
 //add orm
 builder.Services.AddSingleton(fsql);
@@ -65,6 +66,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddScoped<AjaxService>();
 
 var app = builder.Build();
 

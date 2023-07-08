@@ -10,9 +10,10 @@
                     <div>Welcome! @Name</div>
                     <div class="text-center border-left-solid" style="width:88px;">
                         <MAvatar Size=40>
-                            <MImage Src="/imgs/avatar/2.svg"></MImage>
+                            <MImage Src="/admin/imgs/avatar/1.svg"></MImage>
                         </MAvatar>
                     </div>
+                    <MButton Plain Elevation="2" OnClick="Logout">log out</MButton>
                 </div>
                 <div class="default-app-bar__nav @PageModeClass">
                     <PageTabs SelfPatterns="@s_selfPatterns" @ref="_pageTabs" />
@@ -48,6 +49,12 @@
     [Inject]
     IHttpContextAccessor? httpContextAccessor { get; set; }
 
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    public CMS.AdminComponents.AjaxService Ajax { get; set; }
+
     protected override Task OnInitializedAsync()
     {
         isLogin = httpContextAccessor?.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
@@ -57,6 +64,16 @@
             Name = httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "nobody";
         }
         return base.OnInitializedAsync();
+    }
+
+    async Task Logout()
+    {
+        await Ajax.Execute(new AdminComponents.AjaxOption
+        {
+            Url = "api/Account/Logout"
+        });
+
+        Navigation.NavigateTo("/admin/menu", true);
     }
 }
 

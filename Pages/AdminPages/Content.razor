@@ -32,7 +32,7 @@
             <MToolbar Flat>
                 <MToolbarTitle>Content Editor</MToolbarTitle>
                 <MSpacer></MSpacer>
-                <MButton Color="primary" Dark OnClick="()=>OnEditContent(new  Models.contents { MenuID=Id })">New Content</MButton>
+                <MButton Color="primary" Dark OnClick="()=>OnEditContent(new  Models.contents { MenuID=Id,ModuleName=PreModuelName })">New Content</MButton>
             </MToolbar>
         </TopContent>
 
@@ -63,7 +63,7 @@
 
 
 <MDialog @bind-Value="EditDialog"
-         MaxWidth="500">
+         MaxWidth="1200">
     <MCard>
         <MCardTitle>
             <span class="text-h5">Content Editor</span>

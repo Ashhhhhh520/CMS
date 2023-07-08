@@ -1,22 +1,30 @@
-﻿@page "/aboutus" 
+﻿@page "/aboutus"
+@inherits BaseContentPage
+@code{
+    public AboutUs() : base("About Us")
+    {
+
+    }
+}
 
 <div style="background-color: #F5F5F5">
     <MRow Style="padding:10px;" Class="my_justily_content">
         <div class="my_font_family" style="font-size: 28px; font-weight: 500; text-align: center; background-color: #BDAAAA; box-shadow: 0px 0px 2px 2px #BDAAAA; color: #433535; width: 90%; display: flex; justify-content: center ">
-            About Newcastle Australia
+            @GetContent("part1")
         </div>
     </MRow>
     <MRow>
-        <MImage Src="imgs/aboutus/aboutus1.png"/>
+        <MImage Src="@GetContent("part1",1)" />
     </MRow>
     <MRow Style="margin:10px">
         <div class="my_font_family" style="font-size: 36px; font-weight: 500; text-align: center; display: flex; justify-content: center; padding: 10px; color: #443838">
-            Welcome to The Newcastle Australia Institute of Higher Education (Newcastle Australia) - a campus of the University of Newcastle, Australia.
+            @GetContent("part2")
         </div>
     </MRow>
     <MRow Class="flex-center">
         <div style="width:90%" class="my_flex_text">
-            <div>
+            @GetContent("part3")
+            @*<div>
                 The University of Newcastle is a research-intensive University and ranked in the top 200 of the world’s universities (QS World University Rankings 2023). We are top 30 in the world for impact. Impact is measured by the Times Higher Education Impact Rankings which assess universities against the 17 United Nations Sustainable Development Goals (UN SDGs). We are ranked top 5 in the world for the SDG, partnering for a sustainable future. We are committed to solving the world's problems aligned with our core values of equity, excellence, engagement and sustainability.
             </div>
             <div style="margin-top:5px">
@@ -33,31 +41,34 @@
             </div>
             <div>
                 The spirit of looking to the future to imagine and then realise possibilities is at the essence of the University of Newcastle: our motto is ‘I look ahead’.
-            </div>
+            </div>*@
         </div>
-        
+
     </MRow>
     <MRow Class="my_justily_content my_margin_top">
         <MCol Align="AlignTypes.Center" Cols="3">
-            <MImage Src="imgs/aboutus/aboutus2.png" Style="margin:auto;" Width="200" Height="200" />
+            <MImage Src="@GetContent("part4",1)" Style="margin:auto;" Width="200" Height="200" />
         </MCol>
     </MRow>
     <MRow Class="my_flex_text my_margin_top">
         <div style="color: #656889;">
-            Celebrated as one of Asia’s most advanced education, research and innovation hubs, Singapore has been the ideal location for the delivery of the University of Newcastle’s programs in the region since 2002. Our strategic location is even more relevant today with the rise of Asia.
+            @*Celebrated as one of Asia’s most advanced education, research and innovation hubs, Singapore has been the ideal location for the delivery of the University of Newcastle’s programs in the region since 2002. Our strategic location is even more relevant today with the rise of Asia.*@
+            @GetContent("part5")
         </div>
     </MRow>
     <MRow>
-        <MImage Src="imgs/aboutus/aboutus3.png"/>
+        <MImage Src="@GetContent("part6")" />
     </MRow>
     <MRow Class="my_flex_text">
         <div style="color: #A48A8A;font-weight:500;" class="my_font_family">
-            Established as a wholly-owned entity of the University in 2006, Newcastle Australia (formerly known as UON Singapore) has continued to deliver and expand both its full-time and part-time programs. Our strong partnerships with leading local institutions provide our diverse range of local and international students access to a broad variety of professional networks when they graduate.
-            Our researchers work with world-class organisations and institutions in the Singapore region and across the globe on research projects, research seminars and faculty-specific collaborations.
+            @*Established as a wholly-owned entity of the University in 2006, Newcastle Australia (formerly known as UON Singapore) has continued to deliver and expand both its full-time and part-time programs. Our strong partnerships with leading local institutions provide our diverse range of local and international students access to a broad variety of professional networks when they graduate.
+        Our researchers work with world-class organisations and institutions in the Singapore region and across the globe on research projects, research seminars and faculty-specific collaborations.*@
+            @GetContent("part7")
         </div>
     </MRow>
     <MRow Class="my_flex_text my_margin_top" Style="color: #32477C;">
-        <div>
+        @GetContent("part8")
+        @*<div>
             Our Mission
         </div>
         <div>
@@ -78,18 +89,25 @@
         <div>
             Promoting and growing two-way mobility of students and staff between the University of Newcastle’s Australian and Singapore campuses
 
-        </div>
+        </div>*@
     </MRow>
 
     <MRow Class="my_justily_content">
-        <MCol Cols="5">
-            <MImage Src="imgs/aboutus/aboutus4.png"/>
+        @foreach (var item in GetContents("part9",1))
+        {
+            <MCol Cols="5">
+                <MImage Src="@item.Content"/>
+            </MCol>
+        }
+        @*<MCol Cols="5">
+            <MImage Src="imgs/aboutus/aboutus4.png" />
         </MCol>
         <MCol Cols="5">
             <MImage Src="imgs/aboutus/aboutus6.png" />
-        </MCol>
+        </MCol>*@
     </MRow>
     <MRow>
-        <MImage Src="imgs/aboutus/aboutus5.png"/>
+        <MImage Src="@GetContent("part10")" />
+        @*<MImage Src="imgs/aboutus/aboutus5.png" />*@
     </MRow>
 </div>

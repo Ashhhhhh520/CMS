@@ -2,6 +2,7 @@
 using CMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -66,14 +67,7 @@ namespace CMS.Controllers
         public async Task<string> Logout()
         {
             HttpContext.Response.Cookies.Delete("access_token");
-            return "OK";
+            return "{}";
         }
-
-        [HttpGet]
-        public string Test()
-        {
-            return "1";
-        }
-
     }
 }
