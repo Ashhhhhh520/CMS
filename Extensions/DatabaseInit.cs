@@ -47,7 +47,7 @@ namespace CMS.Extensions
             {
                 if(!await freeSql.Select<menus>().AnyAsync())
                 {
-                    var contents = JsonConvert.DeserializeObject<List<menus>>(await File.ReadAllTextAsync(contents_file.FullName));
+                    var contents = JsonConvert.DeserializeObject<List<menus>>(await File.ReadAllTextAsync(menus_file.FullName));
                     await freeSql.Insert(contents).ExecuteAffrowsAsync();
                 }
             }
