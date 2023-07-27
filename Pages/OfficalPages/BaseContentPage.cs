@@ -32,6 +32,11 @@ namespace CMS.Pages.OfficalPages
             return Contents.Where(a => a.ModuleName == part && a.Type == type);                
         }
 
+        protected IEnumerable<IGrouping<string,contents>> GetPartGroupContents(string part="part")
+        {
+            return Contents.Where(a => a.ModuleName.Contains(part)).GroupBy(a => a.ModuleName);
+        }
+
         protected override async Task OnInitializedAsync()
         {
             Contents = await freeSql.Select<menus,contents>()
