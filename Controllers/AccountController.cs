@@ -2,7 +2,6 @@
 using CMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -23,11 +22,9 @@ namespace CMS.Controllers
         [HttpPost("Login")]
         public async Task<LoginResultModel> Login(UserModel user)
         {
-
             var db_user = await freeSql.Select<users>()
                 .Where(a => a.UserName == user.username)
                 .FirstAsync();
-
             //var db_user = new users()
             //{
             //    ID=1,
