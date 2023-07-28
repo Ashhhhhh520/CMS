@@ -39,21 +39,21 @@ namespace CMS.Extensions
 
             var contents_file = new FileInfo(Path.Combine(builder.Environment.WebRootPath, "data","contents.json"));
             var menus_file = new FileInfo(Path.Combine(builder.Environment.WebRootPath, "data","menus.json"));
-            if (contents_file.Exists)
-            {
-                if(! await freeSql.Select<contents>().AnyAsync())
-                {
-                    var contents = JsonConvert.DeserializeObject<List<contents>>(await File.ReadAllTextAsync(contents_file.FullName));
-                    await freeSql.Insert(contents).ExecuteAffrowsAsync();
-                }
-            }
-
             if (menus_file.Exists)
             {
                 if(!await freeSql.Select<menus>().AnyAsync())
                 {
-                    var contents = JsonConvert.DeserializeObject<List<menus>>(await File.ReadAllTextAsync(menus_file.FullName));
-                    await freeSql.Insert(contents).ExecuteAffrowsAsync();
+                    var content_data = JsonConvert.DeserializeObject<List<contents>>(await File.ReadAllTextAsync(contents_file.FullName));
+
+                    var menus = JsonConvert.DeserializeObject<List<menus>>(await File.ReadAllTextAsync(menus_file.FullName));
+                    //await freeSql.Insert(contents).ExecuteAffrowsAsync();
+                    foreach (var menu in menus!)
+                    {
+                        var id = await freeSql.Insert(menu).ExecuteIdentityAsync();
+                        var contetns = content_data!.Where(a=>a.MenuID==menu.ID).ToList();
+                        contetns.AsParallel().ForAll(a => a.MenuID = (int)id);
+                        await freeSql.Insert(contetns).ExecuteAffrowsAsync();
+                    }
                 }
             }
         }
