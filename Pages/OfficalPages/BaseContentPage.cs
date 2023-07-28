@@ -22,6 +22,11 @@ namespace CMS.Pages.OfficalPages
             return Contents.FirstOrDefault(a => a.ModuleName == part&&a.Type==type)?.Content;
         }
 
+        protected string? GetTitle(string part,string remark="title")
+        {
+            return Contents.FirstOrDefault(a => a.ModuleName == part && a.Remark== remark)?.Content;
+        }
+
         protected string? GetImg(string part, int type = 1)
         {
             return Contents.FirstOrDefault(a => a.ModuleName == part && a.Type == type)?.Content;
