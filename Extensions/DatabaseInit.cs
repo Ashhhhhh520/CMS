@@ -8,6 +8,11 @@ namespace CMS.Extensions
     {
         public static async Task OnDatabaseInit(IFreeSql freeSql,WebApplicationBuilder builder)
         {
+            //var a = await freeSql.Select<contents>().Where(a=>true).ToListAsync();
+            //await File.WriteAllTextAsync(Path.Combine(builder.Environment.WebRootPath, "data", "contents.json"), JsonConvert.SerializeObject(a));
+            //var b = await freeSql.Select<menus>().Where(a => true).ToListAsync();
+            //await File.WriteAllTextAsync(Path.Combine(builder.Environment.WebRootPath, "data", "menus.json"), JsonConvert.SerializeObject(b));
+
             var models = Assembly.GetExecutingAssembly().GetTypes().Where(a => a.Namespace?.StartsWith("CMS.Models")??false);
 
             foreach (var model in models)
