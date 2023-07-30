@@ -8,7 +8,7 @@ namespace CMS.Extensions
     {
         public static async Task OnDatabaseInit(IFreeSql freeSql,WebApplicationBuilder builder)
         {
-            //var a = await freeSql.Select<contents>().Where(a=>true).ToListAsync();
+            //var a = await freeSql.Select<contents>().Where(a => true).ToListAsync();
             //await File.WriteAllTextAsync(Path.Combine(builder.Environment.WebRootPath, "data", "contents.json"), JsonConvert.SerializeObject(a));
             //var b = await freeSql.Select<menus>().Where(a => true).ToListAsync();
             //await File.WriteAllTextAsync(Path.Combine(builder.Environment.WebRootPath, "data", "menus.json"), JsonConvert.SerializeObject(b));
